@@ -15,6 +15,8 @@ export function WalletDetails({ user, toggleModal }) {
     if (!token) {
         navigate("/");
     }
+    console.log(user);
+    
 
     useEffect(() => {
         const fetchTransactions = async () => {
@@ -55,7 +57,7 @@ export function WalletDetails({ user, toggleModal }) {
                         ✕
                     </button>
                 </div>
-                <p><strong>Username:</strong> {user.author}</p>
+                <p><strong>Username:</strong> {user.userName}</p>
                 <p><strong>Balance:</strong> ${user.coins !== undefined ? user.coins.toFixed(2) : "Loading..."}</p>
 
                 <h3 className="text-lg font-semibold mt-4">Transactions Sent:</h3>

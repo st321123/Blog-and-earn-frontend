@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { WalletDetails } from './WalletDetails';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa'; // Import FaPlus icon
+
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -26,6 +28,8 @@ export function NavBar() {
               Authorization: token
             }
           });
+       
+          
           setUser(userResponse.data.userDetails);
         } catch (error) {
           console.error("Error fetching user details:", error);
@@ -39,7 +43,7 @@ export function NavBar() {
     setIsModalOpen(!isModalOpen);
   };
 
-
+  console.log(user);
   
 
   return (
@@ -62,17 +66,20 @@ export function NavBar() {
 
             {/* Home Link */}
             <Link
-              to="/"
-              className="text-white text-sm md:text-lg font-medium hover:text-yellow-400 transition-colors duration-300 flex items-center justify-center h-10 md:h-12 px-3 md:px-4 rounded-md">
-              Home
-            </Link>
+  to="/"
+  className="text-white hidden md:block text-sm md:text-lg font-medium hover:text-yellow-400 transition-colors duration-300 md:flex md:items-center md:justify-center h-10 md:h-12 px-3 md:px-4 rounded-md">
+  Home
+</Link>
 
             {/* Create Profile */}
             <Link
-              to="/create-post"
-              className="text-white text-sm md:text-lg font-medium hover:text-yellow-400 transition-all duration-300 ease-in-out transform flex items-center justify-center h-10 md:h-12 px-3 md:px-4 rounded-md">
-              Create
-            </Link>
+  to="/create-post"
+  className="text-white text-sm md:text-lg font-medium hover:text-yellow-400 transition-all duration-300 ease-in-out transform flex items-center justify-center h-10 md:h-12 px-3 md:px-4 rounded-md">
+  <span className="md:hidden flex items-center">
+    <FaPlus className="mr-1" /> {/* Plus icon for small screens */}
+  </span>
+  <span className="hidden md:inline">Create</span> {/* Show 'Create' on medium and larger screens */}
+</Link>
 
             {/* Profile */}
             <Link

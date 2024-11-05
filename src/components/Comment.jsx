@@ -71,7 +71,7 @@ export function CommentSection({ postId }) {
   
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg mt-4 shadow-sm">
+    <div className="bg-gray-100 p-4 rounded-lg mt-4 shadow-sm mb-10">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">Comments</h3>
 
       <div className="flex items-center mb-4">
