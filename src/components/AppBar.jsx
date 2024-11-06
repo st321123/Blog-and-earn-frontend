@@ -43,8 +43,7 @@ export function NavBar() {
     setIsModalOpen(!isModalOpen);
   };
 
-  console.log(user);
-  
+
 
   return (
     <nav className="bg-gradient-to-r from-blue-500 to-green-500 p-5 shadow-lg">

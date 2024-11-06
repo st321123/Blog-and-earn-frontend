@@ -15,7 +15,7 @@ export function WalletDetails({ user, toggleModal }) {
     if (!token) {
         navigate("/");
     }
-    console.log(user);
+   
     
 
     useEffect(() => {

@@ -42,7 +42,8 @@ export function Allpost() {
     if (!posts || posts.length === 0) {
         return (<h1>Loading...</h1>); // Handle loading state
     }
-
+  
+    
     const totalPages = Math.ceil(totalPosts / postsPerPage);
 
     return (

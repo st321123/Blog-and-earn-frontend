@@ -24,8 +24,10 @@ export function FullPostCard({ flag, setFlag, token, author, title, description,
         setFlag(!flag);
     }
 
+  
+       
     return (
-        <Card className='bg-red-' sx={{ maxWidth: '100%', margin: '16px auto', borderRadius: 2, boxShadow: 3 }}>
+        <Card className='bg-red-' sx={{ width: '100%',  maxHeight: '80vh', overflowY: 'auto', margin: '16px auto', borderRadius: 2, boxShadow: 3 }}>
             <CardContent sx={{ paddingBottom: '8px' }}>
                 {/* Post Title */}
                 <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
@@ -96,7 +98,6 @@ export function FullPostCard({ flag, setFlag, token, author, title, description,
                 <ViewAllLikes postId={postId} token={token} setLikesName={setLikesName} toogle={toggle} />
             </Box>
 
-           
             <Box px={2} pb={2}>
                 <CommentSection postId={postId} />
             </Box>

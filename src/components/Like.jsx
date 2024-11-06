@@ -29,7 +29,7 @@ export function LikeButton({ postId, lC, updateLikeCount }) {
         }
       });
       const newLikeCount = response.data.likeCount;
-      setLiked(!liked);
+      
       updateLikeCount(postId, newLikeCount);
     } catch (error) {
       console.error('Error toggling like:', error);
