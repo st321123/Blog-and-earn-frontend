@@ -28,7 +28,7 @@ export  function FullPost() {
        
         
     
-       
+    
         
         setData(val.data.db[0]);
        })
@@ -38,6 +38,7 @@ export  function FullPost() {
    {
     return(<h1>Loading....</h1>)
    }
+  
    
    
    
@@ -47,7 +48,7 @@ export  function FullPost() {
 
     <div className=' h-[80vh]  flex flex-col '>
     
-         <FullPostCard flag={flag} setFlag = {setFlag} token = {token} postId = {postId} key = {data._id} userId={data.userId} title={data.title} description={data.description} author = {data.author.author} authorId = {data.author._id} likeCount = {data.likeCount} />
+         <FullPostCard flag={flag} setFlag = {setFlag} token = {token} postId = {postId} key = {data._id} userId={data.userId} title={data.title} description={data.description} author = {data.author.userName} authorId = {data.author._id} likeCount = {data.likeCount} />
       
     </div>
   )
