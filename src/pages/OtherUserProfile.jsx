@@ -74,7 +74,7 @@ export function OtherUserProfile() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography variant="h4" fontWeight="bold">
-          {userName}'s Profile
+          {userName.split(" ",1)}'s Profile
         </Typography>
         <Box display="flex" gap={3}>
           <Button
