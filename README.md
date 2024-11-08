@@ -29,6 +29,9 @@
 - **Node.js**: For server-side logic and handling requests.
 - **Express.js**: For building the backend API.
 - **MongoDB**: For storing user data, blog posts, comments, and transaction records.
+  
+### Backend github link
+- https://github.com/st321123/Blog-and-earn-Backend
 
 ## 📂 Project Structure
 
