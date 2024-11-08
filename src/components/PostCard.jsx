@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { LikeButton } from './Like';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,11 +6,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Card, CardContent, Typography, Box, Button, Chip, Tooltip } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import {likeCountFamily} from "../store/like"
+import { useSetRecoilState } from 'recoil';
 
-export function PostCard({ name, title, description, id, likeCount, updateLikeCount }) {
+export function PostCard({ name, title, description, id, likeCount }) {
+
+  
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+ 
+  const setLikeCount = useSetRecoilState( likeCountFamily(id));
+  useEffect(()=>{
+    setLikeCount(likeCount);
+  }, [])
+  
+  
+  
+  
+ 
 
   // Function to toggle between full and short description
   const toggleDescription = () => {
@@ -29,7 +43,9 @@ export function PostCard({ name, title, description, id, likeCount, updateLikeCo
         autoClose: 3000,
       });
     } else {
+      
       navigate(`/full-post/${id}`);
+
     }
   };
 
@@ -71,7 +87,7 @@ export function PostCard({ name, title, description, id, likeCount, updateLikeCo
 
         {/* Like Button */}
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <LikeButton postId={id} lC={likeCount} updateLikeCount={updateLikeCount} />
+          <LikeButton postId={id} likeCounts = {likeCount}/>
 
           <Chip
             label={`Posted by: ${name}`}

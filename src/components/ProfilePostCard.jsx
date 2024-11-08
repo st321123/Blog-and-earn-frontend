@@ -4,6 +4,8 @@ import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 
 export function ProfilePostCard({ id, title, description, createdAt, token, flag, setFlag }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  
+
 
   const shortDescription = description.length > 100 ? `${description.substring(0, 100)}...` : description;
 

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 export  function DeletePost({ postId, token, setFlag, flag }) {
   const [open, setOpen] = useState(false);
+  
   const BASE_URL = import.meta.env.VITE_API_URL;
  
 

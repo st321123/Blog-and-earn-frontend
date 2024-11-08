@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {likeCountFamily} from "../store/like"
+import { useRecoilState } from 'recoil';
 
-export function LikeButton({ postId, lC, updateLikeCount }) {
+export function LikeButton({ postId }) {
+  const [likeCount,setLikeCount] = useRecoilState( likeCountFamily(postId));
+  
   const [liked, setLiked] = useState(false);
   const token = localStorage.getItem("token");
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -23,14 +27,19 @@ export function LikeButton({ postId, lC, updateLikeCount }) {
     }
 
     try {
+      
       const response = await axios.post(`${BASE_URL}/${postId}/likes`, {}, {
         headers: {
           Authorization: token
         }
       });
-      const newLikeCount = response.data.likeCount;
+  
       
-      updateLikeCount(postId, newLikeCount);
+      const newLikeCount = await response.data.likeCount;
+    
+      
+      
+      setLikeCount( newLikeCount);
     } catch (error) {
       console.error('Error toggling like:', error);
       toast.error("An error occurred while liking the post. Please try again.", {
@@ -38,6 +47,7 @@ export function LikeButton({ postId, lC, updateLikeCount }) {
         autoClose: 3000,
       });
     }
+   
   };
 
   return (
@@ -55,7 +65,7 @@ export function LikeButton({ postId, lC, updateLikeCount }) {
           ❤️
         </span>
         <span className={`text-sm ${liked ? 'text-white' : 'text-gray-800'} 
-                          sm:text-base`}>{lC}</span> {/* Adjust text size for small screens */}
+                          sm:text-base`}>{likeCount}</span> {/* Adjust text size for small screens */}
       </button>
 
       {/* ToastContainer to render toast notifications */}

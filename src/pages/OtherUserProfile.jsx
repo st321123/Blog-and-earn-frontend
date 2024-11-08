@@ -3,6 +3,7 @@ import axios from 'axios';
 import { OtherProfilePostCard } from '../components/OtherProfilePostCard'; 
 import { useParams } from 'react-router';
 import { Typography, Box, Button, Container, Grid, Paper } from '@mui/material';
+import LoadingSpinner from '../components/Loading';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -15,6 +16,8 @@ export function OtherUserProfile() {
   const token = localStorage.getItem("token");
   const [myId, setMyId] = useState();
   const { userId } = useParams();
+  const [authorId, setAuthorId] = useState("")
+  const [loading ,setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -28,12 +31,16 @@ export function OtherUserProfile() {
             }
           }
         );
+      
+        
         setIsFollowing(userResponse.data.follow);
+        setAuthorId(userResponse.data.userDetails._id);
         setMyId(userResponse.data.followerId);
         setUsername(userResponse.data.userDetails.userName);
         setPosts(userResponse.data.postDetails);
         setFollowersCount(userResponse.data.userDetails.followerCount);
         setFollowingCount(userResponse.data.userDetails.followingCount);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
@@ -58,6 +65,10 @@ export function OtherUserProfile() {
       console.error("Error following user:", error);
     }
   };
+  if(loading)
+  {
+    return(<LoadingSpinner />)
+  }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -105,10 +116,12 @@ export function OtherUserProfile() {
             posts.map((post) => (
               <Grid item xs={12} key={post._id}>
                 <OtherProfilePostCard
-                  id={post._id}
+                  postId={post._id}
                   title={post.title}
                   description={post.description}
                   createdAt={post.createdAt}
+                  authorId = {authorId}
+                  
                 />
               </Grid>
             ))

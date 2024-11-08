@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { PostCard } from './PostCard';
+import LoadingSpinner from './Loading';
 
 export function Allpost() {
     const [posts, setPosts] = useState([]);  // State to store all posts
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPosts, setTotalPosts] = useState(0);
     const [postsPerPage] = useState(6); // You can change this value to set how many posts per page
-
+  
     const BASE_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export function Allpost() {
     };
 
     if (!posts || posts.length === 0) {
-        return (<h1>Loading...</h1>); // Handle loading state
+        return (<LoadingSpinner/> ); // Handle loading state
     }
   
     

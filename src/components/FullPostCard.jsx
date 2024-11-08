@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, Box, Link as MuiLink } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CommentSection } from './Comment';
@@ -6,23 +6,21 @@ import axios from 'axios';
 import { ViewAllLikes } from './ViewAllLikes';
 import { Superchat } from './Superchat';
 import { Link } from 'react-router-dom';
+import {useSetRecoilState} from "recoil"
+import { likeCountFamily } from '../store/like';
+import { LikeButton } from './Like';
 
 export function FullPostCard({ flag, setFlag, token, author, title, description, image, postId, likeCount, authorId }) {
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const [likes, setLikesName] = useState([]);
+    // const [likes, setLikesName] = useState([]);
     const [toggle, setToggle] = useState(true);
-
-    async function handleClick() {
-        const response = await axios.post(`${BASE_URL}/${postId}/likes`, {}, {
-            headers: {
-                Authorization: token
-            }
-        });
-        setLikesName(likes);
-        setToggle(!toggle);
-        setFlag(!flag);
-    }
-
+ 
+    const setLikeCounts = useSetRecoilState(likeCountFamily(postId));
+    useEffect(()=>{
+        setLikeCounts(likeCount)
+    },[])
+    
+    
 
     return (
         <Box width="100%"  mx="auto" my={2}>
@@ -77,24 +75,26 @@ export function FullPostCard({ flag, setFlag, token, author, title, description,
                 <Box display="flex" alignItems="center" justifyContent="space-between" p={2} pb={2}>
     {/* Like Button and ViewAllLikes in a vertical stack */}
     <Box display="flex" flexDirection="column" alignItems="start">
-        <Button
-            onClick={handleClick}
+        <LikeButton postId={postId}/>
+        {/* <Button
+            onClick={handleLikes}
             startIcon={<FavoriteIcon />}
             variant="contained"
             color="error"
+
             sx={{ textTransform: 'none', fontWeight: 'bold' }}
         >
-            Likes: {likeCount}
-        </Button>
+            Likes: {likeCounts}
+        </Button> */}
 
         {/* View All Likes positioned below Like button */}
         <Box mt={1}>
-            <ViewAllLikes postId={postId} token={token} setLikesName={setLikesName} toggle={toggle} />
+            <ViewAllLikes postId={postId} token={token}  />
         </Box>
     </Box>
 
     {/* Superchat Button aligned to the right */}
-    <Superchat postId={postId} recipientId={authorId} token={token} />
+    <Superchat postId={postId} recipientId={authorId}  />
 </Box>
             </Card>
 

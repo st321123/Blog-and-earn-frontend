@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-export function ViewAllLikes({ postId, token,setLikesName,toogle}) {
+import LoadingSpinner from './Loading';
+export function ViewAllLikes({ postId, token}) {
     const BASE_URL = import.meta.env.VITE_API_URL;
     const [likes, setLikes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    
 
     useEffect(() => {
         const handleLikeList = async () => {
@@ -15,8 +17,9 @@ export function ViewAllLikes({ postId, token,setLikesName,toogle}) {
                         Authorization: token,
                     },
                 });
-                setLikesName(response.data.likes)
+               
                 setLikes(response.data.likes); // Assuming response.data.likes is an array of users
+               
             } catch (error) {
                 // console.error("Error fetching like list:", error);
             } finally {
@@ -25,14 +28,14 @@ export function ViewAllLikes({ postId, token,setLikesName,toogle}) {
         };
 
         handleLikeList();
-    }, [postId, token,toogle]);
+    }, [postId, token,isModalOpen === true]);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return "Loading";
     }
 
     return (

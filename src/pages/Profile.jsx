@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ProfilePostCard } from '../components/ProfilePostCard'; 
 import { Typography, Box, Grid, Container, Paper } from '@mui/material';
-
+import LoadingSpinner from '../components/Loading';
+import { useNavigate } from 'react-router-dom';
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export function Profile() {
+
   const [posts, setPosts] = useState([]);
   const [flag, setFlag] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const token = localStorage.getItem("token");
+  const [loading ,setLoading ] = useState(true);
 
   useEffect(() => {
     const fetchUserPosts = async () => {
@@ -22,6 +25,7 @@ export function Profile() {
         
         setPosts(userResponse.data.db.length > 0 ? userResponse.data.db : []);
         setUserDetails(userResponse.data.userDetails);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user posts:", error);
       }
@@ -31,34 +35,54 @@ export function Profile() {
   }, [flag, userDetails.followerCount, userDetails.followingCount]);
 
   if (!token) {
-    return <Typography variant="h4" align="center">Loading...</Typography>;
+    return useNavigate('/');
   }
+
+  if(loading)
+    {
+      return(<LoadingSpinner />)
+    }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Typography variant="h4" fontWeight="bold">
-          {userDetails.userName}'s Profile
+  <Box 
+    display="flex" 
+    flexDirection={{  sm: 'row' }} 
+    justifyContent="space-between" 
+    alignItems="center" 
+    mb={4}
+  >
+    <Typography 
+      variant="h4" 
+      fontWeight="bold" 
+      sx={{ textAlign: {  sm: 'left' } }} // Centered title on small screens
+    >
+      {userDetails.userName.split(" ",1)}'s Profile
+    </Typography>
+    <Box 
+      display="flex" 
+      gap={3} 
+      mt={{ xs: 2, sm: 0 }} // Added margin-top for small screens
+      justifyContent={{  sm: 'flex-end' }} // Center items on small screens
+    >
+      <Box textAlign="center">
+        <Typography variant="h6" fontWeight="medium">
+          {userDetails.followerCount}
         </Typography>
-        <Box display="flex" gap={3}>
-          <Box textAlign="center">
-            <Typography variant="h6" fontWeight="medium">
-              {userDetails.followerCount}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Followers
-            </Typography>
-          </Box>
-          <Box textAlign="center">
-            <Typography variant="h6" fontWeight="medium">
-              {userDetails.followingCount}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Following
-            </Typography>
-          </Box>
-        </Box>
+        <Typography variant="body2" color="textSecondary">
+          Followers
+        </Typography>
       </Box>
+      <Box textAlign="center">
+        <Typography variant="h6" fontWeight="medium">
+          {userDetails.followingCount}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Following
+        </Typography>
+      </Box>
+    </Box>
+  </Box>
 
       <Typography variant="h6" color="textSecondary">
         Posts Created: {posts.length}

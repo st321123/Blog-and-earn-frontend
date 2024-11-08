@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { FullPostCard } from '../components/FullPostCard';
-
+import LoadingSpinner from '../components/Loading';
 
 export  function FullPost() {
   const navigate = useNavigate();
@@ -12,7 +12,9 @@ export  function FullPost() {
     const token = localStorage.getItem("token");
     const [flag, setFlag] = useState(true);
    
+     
     
+ 
     
     if(!token)
     {
@@ -36,7 +38,7 @@ export  function FullPost() {
    
    if(data.length === 0)
    {
-    return(<h1>Loading....</h1>)
+    return(<LoadingSpinner />)
    }
   
    

@@ -9,7 +9,7 @@ export function CommentSection({ postId }) {
   const token = localStorage.getItem("token"); // Retrieve token from local storage
   
   const BASE_URL = import.meta.env.VITE_API_URL;
-
+  
   // Fetch comments when component mounts
   useEffect(() => {
     const fetchComments = async () => {

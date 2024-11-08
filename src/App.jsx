@@ -1,7 +1,9 @@
 import './App.css'
+import {lazy,Suspense} from 'react';
+import {RecoilRoot} from "recoil"
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import {Signin} from "./pages/Sigin"
-import {Dashboard} from"./pages/Dashboard";
+const  Dashboard = lazy(()=>import("./pages/Dashboard"));
 import {Signup} from "./pages/Signup"
 import { FullPost } from './pages/FullPost';
 import {CreatePost} from "./pages/CreatePost";
@@ -10,7 +12,7 @@ import {NavBar}  from "./components/AppBar";
 import { Profile } from './pages/Profile';
 import {OtherUserProfile} from "./pages/OtherUserProfile";
 import NotFound from "./pages/NotFound"
-
+import LoadingSpinner from './components/Loading';
 // import {NotFound} from "./pages/NotFound";
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
   return (
     <div>
     <BrowserRouter> 
+    <RecoilRoot>
     <NavBar />
+    <Suspense fallback={<LoadingSpinner />}>
     <Routes>
       <Route path='/' element={ <Dashboard />} />
       <Route path='/signup' element={<Signup />} />
@@ -33,9 +37,9 @@ function App() {
       <Route path='/post-created-sucess' element = {<PostCreatedSuccess />}></Route>
       <Route path='/:userId/profile' element= {<OtherUserProfile />}  > </Route>
       <Route path = "*" element = {<NotFound />} ></Route>
-
     </Routes>
-   
+    </Suspense>
+    </RecoilRoot>
     </BrowserRouter>       
     </div>
   )

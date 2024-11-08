@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import { Superchat } from './Superchat';
 
-export function OtherProfilePostCard({ id, title, description, createdAt }) {
+export function OtherProfilePostCard({ postId, title, description, createdAt,authorId }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+ 
 
   const shortDescription = description.length > 100 ? `${description.substring(0, 100)}...` : description;
 
@@ -25,11 +28,23 @@ export function OtherProfilePostCard({ id, title, description, createdAt }) {
           )}
         </Typography>
 
-        {createdAt && (
-          <Typography variant="body2" color="textSecondary" mt={2}>
-            Created on: {new Date(createdAt).toLocaleDateString()}
-          </Typography>
-        )}
+        <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+{createdAt && (
+  <Typography variant="body2" color="textSecondary">
+    Created on: {new Date(createdAt).toLocaleDateString()}
+  </Typography>
+)}
+
+{/* Superchat Component on the Right */}
+<Box display="flex" alignItems="center">
+  <Superchat postId={postId} recipientId={authorId} />
+  {/* Replace ChatIcon with your preferred icon */}
+</Box>
+</Box>
+
+
+
+    
       </CardContent>
     </Card>
   );

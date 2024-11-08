@@ -11,7 +11,7 @@ import {
     Alert
 } from '@mui/material';
 
-export function Superchat({ postId, recipientId, senderId, token }) {
+export function Superchat({ postId, recipientId, senderId }) {
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
     const [show, setShow] = useState(false);
@@ -19,7 +19,9 @@ export function Superchat({ postId, recipientId, senderId, token }) {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarType, setSnackbarType] = useState("success"); // 'success' or 'error'
     const BASE_URL = import.meta.env.VITE_API_URL;
-
+ 
+    const token = localStorage.getItem("token");
+    
     async function handleSuperChat() {
         // Check if the sender is trying to send money to themselves
         if (senderId === recipientId) {

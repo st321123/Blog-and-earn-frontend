@@ -8,6 +8,8 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export function NavBar() {
+
+  
   const [user, setUser] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const token = localStorage.getItem("token");
@@ -37,7 +39,7 @@ export function NavBar() {
       };
       fetchUserDetails();
     }
-  }, [token]);
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);

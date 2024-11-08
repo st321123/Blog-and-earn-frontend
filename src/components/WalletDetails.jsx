@@ -58,7 +58,7 @@ export function WalletDetails({ user, toggleModal }) {
                     </button>
                 </div>
                 <p><strong>Username:</strong> {user.userName}</p>
-                <p><strong>Balance:</strong> ${user.coins !== undefined ? user.coins.toFixed(2) : "Loading..."}</p>
+                <p><strong>Balance:</strong> ${user.coins !== undefined ? user.coins.toFixed(2) : "Loading...."}</p>
 
                 <h3 className="text-lg font-semibold mt-4">Transactions Sent:</h3>
                 {transactionsSent.length > 0 ? (
