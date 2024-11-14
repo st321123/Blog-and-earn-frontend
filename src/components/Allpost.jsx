@@ -43,12 +43,12 @@ export function Allpost() {
  
     if (!posts || posts.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen text-center space-y-4">
-                <LoadingSpinner />
-                <p className="text-gray-600 text-sm md:text-base font-semibold max-w-md">
-                    Thank you for your patience! This application is hosted on a free server, so it may take a moment to load due to server cold starts. Please hold tight!
-                </p>
-            </div>
+             <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <LoadingSpinner />
+      <p className="mt-4 text-center text-gray-600 text-sm font-medium max-w-xs">
+        Hosting on a free server, so it might take a moment. Thanks for waiting!
+      </p>
+    </div>
         );
     }
     
