@@ -1,3 +1,6 @@
+import React from 'react';
+import { ClipLoader } from 'react-spinners';
+
 function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50">
@@ -7,3 +10,7 @@ function LoadingSpinner() {
     </div>
   );
 }
+
+
+export default LoadingSpinner;
+
