@@ -40,10 +40,17 @@ export function Allpost() {
         );
     };
 
+ 
     if (!posts || posts.length === 0) {
-        return (<LoadingSpinner/> ); // Handle loading state
+        return (
+            <div className="flex flex-col items-center justify-center h-screen text-center space-y-4">
+                <LoadingSpinner />
+                <p className="text-gray-600 text-sm md:text-base font-semibold max-w-md">
+                    Thank you for your patience! This application is hosted on a free server, so it may take a moment to load due to server cold starts. Please hold tight!
+                </p>
+            </div>
+        );
     }
-  
     
     const totalPages = Math.ceil(totalPosts / postsPerPage);
 
